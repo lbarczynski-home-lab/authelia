@@ -11,6 +11,7 @@ services:
         "OIDC_HMAC_SECRET",
         "OIDC_ISSUER_PRIVATE_KEY",
         "OPENWEBUI_OAUTH_CLIENT_SECRET",
+        "GITLAB_OAUTH_CLIENT_SECRET",
       ]
     env_file:
       - envs/db.env
@@ -130,3 +131,5 @@ secrets:
     file: ./secrets/shared/OIDC_ISSUER_PRIVATE_KEY
   OPENWEBUI_OAUTH_CLIENT_SECRET:
     file: ./secrets/services/OPENWEBUI_OAUTH_CLIENT_SECRET
+  GITLAB_OAUTH_CLIENT_SECRET:
+    file: ./secrets/services/GITLAB_OAUTH_CLIENT_SECRET

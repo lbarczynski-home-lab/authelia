@@ -39,6 +39,7 @@ setup:generate-build-artifacts:
     - 'printf "%s\n" "${OIDC_HMAC_SECRET:?OIDC_HMAC_SECRET is not set}" > $BUILD_ARTIFACTS_DIR/secrets/shared/OIDC_HMAC_SECRET'
     # services
     - 'printf "%s\n" "${OPENWEBUI_OAUTH_CLIENT_SECRET:?OPENWEBUI_OAUTH_CLIENT_SECRET is not set}" > $BUILD_ARTIFACTS_DIR/secrets/services/OPENWEBUI_OAUTH_CLIENT_SECRET'
+    - 'printf "%s\n" "${GITLAB_OAUTH_CLIENT_SECRET:?GITLAB_OAUTH_CLIENT_SECRET is not set}" > $BUILD_ARTIFACTS_DIR/secrets/services/GITLAB_OAUTH_CLIENT_SECRET'
     # storage
     - 'printf "%s\n" "${STORAGE_PASSWORD:?STORAGE_PASSWORD is not set}" > $BUILD_ARTIFACTS_DIR/secrets/shared/STORAGE_PASSWORD'
     - 'printf "%s\n" "${STORAGE_ENCRYPTION_KEY:?STORAGE_ENCRYPTION_KEY is not set}" > $BUILD_ARTIFACTS_DIR/secrets/shared/STORAGE_ENCRYPTION_KEY'
