@@ -20,11 +20,10 @@ services:
       - envs/smtp.env
     environment:
       TZ: "Europe/Warsaw"
-      X_AUTHELIA_CONFIG: /config/,/services-config/
+      X_AUTHELIA_CONFIG: /config/
       X_AUTHELIA_CONFIG_FILTERS: "template"
     volumes:
       - ./authelia-config:/config
-      - ./services-config:/services-config
     healthcheck:
       test:
         [
