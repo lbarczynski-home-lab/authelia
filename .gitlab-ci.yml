@@ -34,7 +34,7 @@ setup:generate-build-artifacts:
     - 'printf "%s\n" "${JWT_SECRET:?JWT_SECRET is not set}" > $BUILD_ARTIFACTS_DIR/secrets/shared/JWT_SECRET'
     - 'printf "%s\n" "${SESSION_SECRET:?SESSION_SECRET is not set}" > $BUILD_ARTIFACTS_DIR/secrets/shared/SESSION_SECRET'
     # OIDC secrets (required from CI variables)
-    - 'printf "%s\n" "${OIDC_ISSUER_PRIVATE_KEY:?OIDC_ISSUER_PRIVATE_KEY is not set}" > $BUILD_ARTIFACTS_DIR/secrets/shared/OIDC_ISSUER_PRIVATE_KEY'
+    - 'cp "${OIDC_ISSUER_PRIVATE_KEY:?OIDC_ISSUER_PRIVATE_KEY is not set}" $BUILD_ARTIFACTS_DIR/secrets/shared/OIDC_ISSUER_PRIVATE_KEY'
     - 'printf "%s\n" "${OIDC_HMAC_SECRET:?OIDC_HMAC_SECRET is not set}" > $BUILD_ARTIFACTS_DIR/secrets/shared/OIDC_HMAC_SECRET'
     # services
     - 'printf "%s\n" "${OPENWEBUI_OAUTH_CLIENT_SECRET:?OPENWEBUI_OAUTH_CLIENT_SECRET is not set}" > $BUILD_ARTIFACTS_DIR/secrets/services/OPENWEBUI_OAUTH_CLIENT_SECRET'
