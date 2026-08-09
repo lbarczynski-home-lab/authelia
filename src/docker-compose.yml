@@ -1,0 +1,122 @@
+services:
+  authelia:
+    container_name: authelia
+    image: ghcr.io/authelia/authelia:4.39.20
+    secrets:
+      [
+        "JWT_SECRET",
+        "SESSION_SECRET",
+        "STORAGE_PASSWORD",
+        "STORAGE_ENCRYPTION_KEY",
+      ]
+    env_file:
+      - envs/db.env
+      - envs/redis.env
+      - envs/ldap.env
+      - envs/smtp.env
+    environment:
+      TZ: "Europe/Warsaw"
+      X_AUTHELIA_CONFIG: /config/
+      X_AUTHELIA_CONFIG_FILTERS: "template"
+    volumes:
+      - ./authelia-config:/config
+    healthcheck:
+      test:
+        [
+          "CMD-SHELL",
+          "wget --no-verbose --tries=1 --spider http://localhost:9091/api/health || exit 1",
+        ]
+      interval: 30s
+      timeout: 5s
+      retries: 5
+      start_period: 20s
+    networks:
+      - authelia_internal
+    depends_on:
+      postgresql:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    restart: unless-stopped
+
+  postgresql:
+    container_name: authelia-postgres
+    image: docker.io/library/postgres:18.4
+    env_file:
+      - envs/db.env
+    healthcheck:
+      test:
+        [
+          "CMD-SHELL",
+          "pg_isready -d $${DATABASE_NAME} -U $${DATABASE_USERNAME}",
+        ]
+      start_period: 20s
+      interval: 30s
+      retries: 5
+      timeout: 5s
+    volumes:
+      - postgres_data:/var/lib/postgresql
+    environment:
+      POSTGRES_DB: ${DATABASE_NAME:-authelia}
+      POSTGRES_USER: ${DATABASE_USERNAME:-authelia}
+      POSTGRES_PASSWORD_FILE: /run/secrets/STORAGE_PASSWORD
+    secrets: ["STORAGE_PASSWORD"]
+    networks:
+      - authelia_internal
+    restart: unless-stopped
+
+  redis:
+    container_name: authelia-redis
+    image: docker.io/library/redis:7.2-alpine
+    env_file:
+      - envs/redis.env
+    command: /bin/sh -c 'redis-server --save 60 1 --loglevel warning --requirepass "$$REDIS_PASSWORD"'
+    healthcheck:
+      test: ["CMD-SHELL", "redis-cli -a $$REDIS_PASSWORD ping | grep PONG"]
+      start_period: 10s
+      interval: 30s
+      retries: 5
+      timeout: 3s
+    volumes:
+      - redis_data:/data
+    networks:
+      - authelia_internal
+    restart: unless-stopped
+
+  cloudflared:
+    container_name: authelia-cloudflared
+    image: cloudflare/cloudflared:2026.7.3
+    profiles: ["production"]
+    command: tunnel run
+    environment:
+      - NO_AUTOUPDATE=true
+    volumes:
+      - ./cloudflared-config:/etc/cloudflared
+    networks:
+      - authelia_internal
+    depends_on:
+      authelia:
+        condition: service_healthy
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
+    name: postgres
+    driver: local
+  redis_data:
+    name: redis
+    driver: local
+
+networks:
+  authelia_internal:
+    name: authelia_internal_network
+
+secrets:
+  JWT_SECRET:
+    file: ./secrets/JWT_SECRET
+  SESSION_SECRET:
+    file: ./secrets/SESSION_SECRET
+  STORAGE_PASSWORD:
+    file: ./secrets/STORAGE_PASSWORD
+  STORAGE_ENCRYPTION_KEY:
+    file: ./secrets/STORAGE_ENCRYPTION_KEY

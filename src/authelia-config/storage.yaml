@@ -1,0 +1,9 @@
+storage:
+  postgres:
+    address: 'tcp://postgresql:5432'
+    database: '{{ env "DATABASE_NAME" }}'
+    schema: 'public'
+    username: '{{ env "DATABASE_USERNAME" }}'
+    password: '{{ secret "/run/secrets/STORAGE_PASSWORD" }}'
+    timeout: '5s'
+  encryption_key: '{{ secret "/run/secrets/STORAGE_ENCRYPTION_KEY" }}'

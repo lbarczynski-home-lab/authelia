@@ -1,0 +1,3 @@
+identity_validation:
+  reset_password:
+    jwt_secret: '{{ secret "/run/secrets/JWT_SECRET" }}'

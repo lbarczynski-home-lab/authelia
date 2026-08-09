@@ -1,0 +1,14 @@
+session:
+  name: "authelia_session"
+  secret: '{{ secret "/run/secrets/SESSION_SECRET" }}'
+  cookies:
+    - domain: "xbhl.online"
+      authelia_url: "https://auth.xbhl.online"
+      same_site: "lax"
+      expiration: "1h"
+      inactivity: "15m"
+      remember_me: "1M"
+  redis:
+    host: "redis"
+    port: 6379
+    password: '{{ env "REDIS_PASSWORD" }}'

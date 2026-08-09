@@ -1,0 +1,8 @@
+tunnel: 6e38abb8-22c1-48b0-a19c-9da7ea15a3a0
+credentials-file: /etc/cloudflared/credentials.json
+no-autoupdate: true
+
+ingress:
+    - hostname: auth.xbhl.online
+      service: http://authelia:9091
+    - service: http_status:404

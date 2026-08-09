@@ -1,0 +1,5 @@
+access_control:
+  default_policy: "deny"
+  rules:
+    - domain: "*.xbhl.online"
+      policy: "two_factor"
