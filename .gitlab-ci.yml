@@ -35,6 +35,7 @@ setup:generate-build-artifacts:
     - 'printf "%s\n" "${SESSION_SECRET:?SESSION_SECRET is not set}" > $BUILD_ARTIFACTS_DIR/secrets/shared/SESSION_SECRET'
     # OIDC secrets (required from CI variables)
     - 'cp "${OIDC_ISSUER_PRIVATE_KEY:?OIDC_ISSUER_PRIVATE_KEY is not set}" $BUILD_ARTIFACTS_DIR/secrets/shared/OIDC_ISSUER_PRIVATE_KEY'
+    - 'awk ''{printf "%s\\n", $0}'' $BUILD_ARTIFACTS_DIR/secrets/shared/OIDC_ISSUER_PRIVATE_KEY > temp && mv temp $BUILD_ARTIFACTS_DIR/secrets/shared/OIDC_ISSUER_PRIVATE_KEY'
     - 'printf "%s\n" "${OIDC_HMAC_SECRET:?OIDC_HMAC_SECRET is not set}" > $BUILD_ARTIFACTS_DIR/secrets/shared/OIDC_HMAC_SECRET'
     # services
     - 'printf "%s\n" "${OPENWEBUI_OAUTH_CLIENT_SECRET:?OPENWEBUI_OAUTH_CLIENT_SECRET is not set}" > $BUILD_ARTIFACTS_DIR/secrets/services/OPENWEBUI_OAUTH_CLIENT_SECRET'
@@ -54,4 +55,4 @@ test:authelia:validate-config:
     - mkdir -p /run/secrets
     - find $BUILD_ARTIFACTS_DIR/secrets/ -type f -exec cp {} /run/secrets/ \;
     - set -a; for file in $BUILD_ARTIFACTS_DIR/envs/*.env; do source "$file"; done; set +a
-    - authelia config validate --config src/authelia-config/
+    - authelia config validate --config src/authelia-config/,src/authelia-config/services/
