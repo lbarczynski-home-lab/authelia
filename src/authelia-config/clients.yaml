@@ -3,7 +3,7 @@ identity_providers:
     clients:
       - client_id: "mnDs7U359iJiBJLmHTkMDjIVeEoeAobQCa0NjDss"
         client_name: "Open WebUI"
-        client_secret: '$plaintext${{ secret "/run/secrets/OPENWEBUI_OAUTH_CLIENT_SECRET" }}'
+        client_secret: '{{ secret "/run/secrets/OPENWEBUI_OAUTH_CLIENT_SECRET" }}'
         public: false
         authorization_policy: "two_factor"
         redirect_uris:
@@ -15,7 +15,7 @@ identity_providers:
         userinfo_signed_response_alg: "none"
       - client_id: 'ZergmgVUh8i3Ud8BfpOx2g16TLh3qsumskreLuMQ'
         client_name: 'GitLab'
-        client_secret: '$plaintext${{ secret "/run/secrets/GITLAB_OAUTH_CLIENT_SECRET" }}'
+        client_secret: '{{ secret "/run/secrets/GITLAB_OAUTH_CLIENT_SECRET" }}'
         public: false
         authorization_policy: 'two_factor'
         redirect_uris:
