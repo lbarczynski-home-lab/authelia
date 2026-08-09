@@ -40,6 +40,7 @@ setup:generate-build-artifacts:
     # services
     - 'printf "%s\n" "${OPENWEBUI_OAUTH_CLIENT_SECRET:?OPENWEBUI_OAUTH_CLIENT_SECRET is not set}" > $BUILD_ARTIFACTS_DIR/secrets/services/OPENWEBUI_OAUTH_CLIENT_SECRET'
     - 'printf "%s\n" "${GITLAB_OAUTH_CLIENT_SECRET:?GITLAB_OAUTH_CLIENT_SECRET is not set}" > $BUILD_ARTIFACTS_DIR/secrets/services/GITLAB_OAUTH_CLIENT_SECRET'
+    - 'printf "%s\n" "${PROXMOX_OAUTH_CLIENT_SECRET:?PROXMOX_OAUTH_CLIENT_SECRET is not set}" > $BUILD_ARTIFACTS_DIR/secrets/services/PROXMOX_OAUTH_CLIENT_SECRET'
     # storage
     - 'printf "%s\n" "${STORAGE_PASSWORD:?STORAGE_PASSWORD is not set}" > $BUILD_ARTIFACTS_DIR/secrets/shared/STORAGE_PASSWORD'
     - 'printf "%s\n" "${STORAGE_ENCRYPTION_KEY:?STORAGE_ENCRYPTION_KEY is not set}" > $BUILD_ARTIFACTS_DIR/secrets/shared/STORAGE_ENCRYPTION_KEY'

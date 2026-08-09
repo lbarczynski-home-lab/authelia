@@ -27,3 +27,17 @@ identity_providers:
           - 'groups'
         userinfo_signed_response_alg: 'none'
         token_endpoint_auth_method: 'client_secret_basic'
+      - client_id: 'fRI0uSNDxxBbYQXwhuZvnR22zmz2jN9ujy8Q9xYm'
+        client_name: 'Proxmox VE'
+        client_secret: '{{ secret "/run/secrets/PROXMOX_OAUTH_CLIENT_SECRET" }}'
+        public: false
+        authorization_policy: 'two_factor'
+        redirect_uris:
+          - 'https://pve.intranet.xbhl.online/'
+        scopes:
+          - 'openid'
+          - 'profile'
+          - 'email'
+          - 'groups'
+        userinfo_signed_response_alg: 'none'
+        token_endpoint_auth_method: 'client_secret_basic'
