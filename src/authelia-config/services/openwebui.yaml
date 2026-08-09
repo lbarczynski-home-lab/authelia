@@ -1,0 +1,15 @@
+identity_providers:
+  oidc:
+    clients:
+      - client_id: "mnDs7U359iJiBJLmHTkMDjIVeEoeAobQCa0NjDss"
+        client_name: "Open WebUI"
+        client_secret: '$plaintext${{ secret "/run/secrets/OPENWEBUI_OAUTH_CLIENT_SECRET" }}'
+        public: false
+        authorization_policy: "two_factor"
+        redirect_uris:
+          - "https://ai.intranet.xbhl.online/oauth/oidc/callback"
+        scopes:
+          - "openid"
+          - "profile"
+          - "email"
+        userinfo_signed_response_alg: "none"

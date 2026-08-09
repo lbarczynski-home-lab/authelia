@@ -31,11 +31,16 @@ setup:generate-build-artifacts:
     - sed -i "s|^SMTP_FROM=.*|SMTP_FROM=${SMTP_FROM}|" $BUILD_ARTIFACTS_DIR/envs/smtp.env
     # secrets
     - cp -r src/secrets $BUILD_ARTIFACTS_DIR/
-    - sed -i "s|^PLACEHOLDER$|${JWT_SECRET}|" $BUILD_ARTIFACTS_DIR/secrets/JWT_SECRET
-    - sed -i "s|^PLACEHOLDER$|${SESSION_SECRET}|" $BUILD_ARTIFACTS_DIR/secrets/SESSION_SECRET
+    - 'printf "%s\n" "${JWT_SECRET:?JWT_SECRET is not set}" > $BUILD_ARTIFACTS_DIR/secrets/shared/JWT_SECRET'
+    - 'printf "%s\n" "${SESSION_SECRET:?SESSION_SECRET is not set}" > $BUILD_ARTIFACTS_DIR/secrets/shared/SESSION_SECRET'
+    # OIDC secrets (required from CI variables)
+    - 'printf "%s\n" "${OIDC_ISSUER_PRIVATE_KEY:?OIDC_ISSUER_PRIVATE_KEY is not set}" > $BUILD_ARTIFACTS_DIR/secrets/shared/OIDC_ISSUER_PRIVATE_KEY'
+    - 'printf "%s\n" "${OIDC_HMAC_SECRET:?OIDC_HMAC_SECRET is not set}" > $BUILD_ARTIFACTS_DIR/secrets/shared/OIDC_HMAC_SECRET'
+    # services
+    - 'printf "%s\n" "${OPENWEBUI_OAUTH_CLIENT_SECRET:?OPENWEBUI_OAUTH_CLIENT_SECRET is not set}" > $BUILD_ARTIFACTS_DIR/secrets/services/OPENWEBUI_OAUTH_CLIENT_SECRET'
     # storage
-    - sed -i "s|^PLACEHOLDER$|${STORAGE_PASSWORD}|" $BUILD_ARTIFACTS_DIR/secrets/STORAGE_PASSWORD
-    - sed -i "s|^PLACEHOLDER$|${STORAGE_ENCRYPTION_KEY}|" $BUILD_ARTIFACTS_DIR/secrets/STORAGE_ENCRYPTION_KEY
+    - 'printf "%s\n" "${STORAGE_PASSWORD:?STORAGE_PASSWORD is not set}" > $BUILD_ARTIFACTS_DIR/secrets/shared/STORAGE_PASSWORD'
+    - 'printf "%s\n" "${STORAGE_ENCRYPTION_KEY:?STORAGE_ENCRYPTION_KEY is not set}" > $BUILD_ARTIFACTS_DIR/secrets/shared/STORAGE_ENCRYPTION_KEY'
     - sed -i "s|^REDIS_PASSWORD=.*|REDIS_PASSWORD=${REDIS_PASSWORD}|" $BUILD_ARTIFACTS_DIR/envs/redis.env
 
 test:authelia:validate-config:
@@ -47,6 +52,6 @@ test:authelia:validate-config:
     X_AUTHELIA_CONFIG_FILTERS: template
   script:
     - mkdir -p /run/secrets
-    - cp $BUILD_ARTIFACTS_DIR/secrets/* /run/secrets/
+    - find $BUILD_ARTIFACTS_DIR/secrets/ -type f -exec cp {} /run/secrets/ \;
     - set -a; for file in $BUILD_ARTIFACTS_DIR/envs/*.env; do source "$file"; done; set +a
     - authelia config validate --config src/authelia-config/

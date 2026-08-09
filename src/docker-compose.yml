@@ -8,6 +8,9 @@ services:
         "SESSION_SECRET",
         "STORAGE_PASSWORD",
         "STORAGE_ENCRYPTION_KEY",
+        "OIDC_HMAC_SECRET",
+        "OIDC_ISSUER_PRIVATE_KEY",
+        "OPENWEBUI_OAUTH_CLIENT_SECRET",
       ]
     env_file:
       - envs/db.env
@@ -113,10 +116,16 @@ networks:
 
 secrets:
   JWT_SECRET:
-    file: ./secrets/JWT_SECRET
+    file: ./secrets/shared/JWT_SECRET
   SESSION_SECRET:
-    file: ./secrets/SESSION_SECRET
+    file: ./secrets/shared/SESSION_SECRET
   STORAGE_PASSWORD:
-    file: ./secrets/STORAGE_PASSWORD
+    file: ./secrets/shared/STORAGE_PASSWORD
   STORAGE_ENCRYPTION_KEY:
-    file: ./secrets/STORAGE_ENCRYPTION_KEY
+    file: ./secrets/shared/STORAGE_ENCRYPTION_KEY
+  OIDC_HMAC_SECRET:
+    file: ./secrets/shared/OIDC_HMAC_SECRET
+  OIDC_ISSUER_PRIVATE_KEY:
+    file: ./secrets/shared/OIDC_ISSUER_PRIVATE_KEY
+  OPENWEBUI_OAUTH_CLIENT_SECRET:
+    file: ./secrets/services/OPENWEBUI_OAUTH_CLIENT_SECRET
