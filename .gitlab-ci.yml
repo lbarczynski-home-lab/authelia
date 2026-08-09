@@ -55,4 +55,4 @@ test:authelia:validate-config:
     - mkdir -p /run/secrets
     - find $BUILD_ARTIFACTS_DIR/secrets/ -type f -exec cp {} /run/secrets/ \;
     - set -a; for file in $BUILD_ARTIFACTS_DIR/envs/*.env; do source "$file"; done; set +a
-    - authelia config validate --config src/authelia-config/,src/authelia-config/services/
+    - authelia config validate --config src/authelia-config/,src/services-config/
