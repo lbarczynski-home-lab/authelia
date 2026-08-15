@@ -12,6 +12,7 @@ identity_providers:
         - 'revocation'
         - 'introspection'
         - 'userinfo'
+      allowed_origins_from_client_redirect_uris: true
     clients:
       - client_id: "mnDs7U359iJiBJLmHTkMDjIVeEoeAobQCa0NjDss"
         client_name: "Open WebUI"
