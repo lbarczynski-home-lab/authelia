@@ -134,6 +134,9 @@ identity_providers:
         pkce_challenge_method: 'S256'
         redirect_uris:
           - 'oc://android.owncloud.com'
+          - 'oc://android.owncloud.com/'
+          - 'oc.android://android.owncloud.com'
+          - 'oc.android://android.owncloud.com/'
         scopes:
           - 'openid'
           - 'offline_access'
