@@ -76,7 +76,7 @@ services:
     image: docker.io/library/redis:7.2-alpine
     env_file:
       - envs/redis.env
-    command: /bin/sh -c 'redis-server --save 60 1 --loglevel warning --requirepass "$$REDIS_PASSWORD"'
+    command: /bin/sh -c 'exec redis-server --save 60 1 --loglevel warning --requirepass "$$REDIS_PASSWORD"'
     healthcheck:
       test: ["CMD-SHELL", "redis-cli -a $$REDIS_PASSWORD ping | grep PONG"]
       start_period: 10s
