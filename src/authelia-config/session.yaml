@@ -5,8 +5,8 @@ session:
     - domain: "xbhl.online"
       authelia_url: "https://auth.xbhl.online"
       same_site: "lax"
-      expiration: "1h"
-      inactivity: "15m"
+      expiration: "24h"
+      inactivity: "2h"
       remember_me: "10y"
   redis:
     host: "redis"
