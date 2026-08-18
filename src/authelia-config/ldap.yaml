@@ -17,8 +17,8 @@ authentication_backend:
     attributes:
       distinguished_name: 'distinguishedName'
       username: 'uid'
-      display_name: 'description'
-      given_name: 'description'
+      display_name: 'gecos'
+      given_name: 'gecos'
       mail: 'mail'
       member_of: 'memberOf'
       group_name: 'cn'
