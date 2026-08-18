@@ -3,4 +3,6 @@ webauthn:
   display_name: 'XBHL.online'
   enable_passkey_login: true
   attestation_conveyance_preference: 'indirect'
+  user_verification: 'preferred'
   timeout: '60 seconds'
+  experimental_enable_passkey_uv_two_factors: true
