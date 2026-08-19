@@ -10,6 +10,7 @@ identity_providers:
       - client_id: "mnDs7U359iJiBJLmHTkMDjIVeEoeAobQCa0NjDss"
         client_name: "Open WebUI"
         client_secret: '{{ secret "/run/secrets/OPENWEBUI_OAUTH_CLIENT_SECRET" }}'
+        consent_mode: 'implicit'
         public: false
         authorization_policy: "two_factor"
         redirect_uris:
@@ -22,6 +23,7 @@ identity_providers:
       - client_id: "ZergmgVUh8i3Ud8BfpOx2g16TLh3qsumskreLuMQ"
         client_name: "GitLab"
         client_secret: '{{ secret "/run/secrets/GITLAB_OAUTH_CLIENT_SECRET" }}'
+        consent_mode: 'implicit'
         public: false
         authorization_policy: "two_factor"
         redirect_uris:
@@ -36,6 +38,7 @@ identity_providers:
       - client_id: "fRI0uSNDxxBbYQXwhuZvnR22zmz2jN9ujy8Q9xYm"
         client_name: "Proxmox VE"
         client_secret: '{{ secret "/run/secrets/PROXMOX_OAUTH_CLIENT_SECRET" }}'
+        consent_mode: 'implicit'
         public: false
         authorization_policy: "two_factor"
         require_pkce: true
@@ -57,6 +60,7 @@ identity_providers:
       - client_id: "949b259188d3984589387095e7cba1862db15f33"
         client_name: "Proxmox Backup Server"
         client_secret: '{{ secret "/run/secrets/PBS_OAUTH_CLIENT_SECRET" }}'
+        consent_mode: 'implicit'
         public: false
         authorization_policy: "two_factor"
         require_pkce: true
@@ -78,8 +82,7 @@ identity_providers:
       - client_id: 'ocis'
         client_name: 'ownCloud Infinite Scale'
         lifespan: 'ocis'
-        consent_mode: 'pre-configured'
-        pre_configured_consent_duration: '10y'
+        consent_mode: 'implicit'
         public: true
         authorization_policy: 'two_factor'
         require_pkce: true
@@ -107,8 +110,7 @@ identity_providers:
         client_name: 'ownCloud Infinite Scale (Desktop Client)'
         client_secret: 'UBntmLjC2yYCeHwsyj73Uwo9TAaecAetRwMw0xYcvNL9yRdLSUi0hUAHfvCHFeFh'
         lifespan: 'ocis'
-        consent_mode: 'pre-configured'
-        pre_configured_consent_duration: '10y'
+        consent_mode: 'implicit'
         public: false
         authorization_policy: 'two_factor'
         require_pkce: true
@@ -187,6 +189,7 @@ identity_providers:
       - client_id: "nextcloud"
         client_name: "Nextcloud"
         client_secret: '{{ secret "/run/secrets/NEXTCLOUD_OAUTH_CLIENT_SECRET" }}'
+        consent_mode: 'implicit'
         public: false
         authorization_policy: "two_factor"
         require_pkce: true
