@@ -208,3 +208,17 @@ identity_providers:
         access_token_signed_response_alg: "none"
         userinfo_signed_response_alg: "none"
         token_endpoint_auth_method: "client_secret_post"
+      - client_id: "wud"
+        client_name: "What's Up Docker"
+        client_secret: '{{ secret "/run/secrets/WUD_OAUTH_CLIENT_SECRET" }}'
+        consent_mode: "implicit"
+        public: false
+        authorization_policy: "two_factor"
+        redirect_uris:
+          - "https://wud.intranet.xbhl.online/auth/oidc/authelia/cb"
+        scopes:
+          - "openid"
+          - "profile"
+          - "email"
+        userinfo_signed_response_alg: "none"
+        token_endpoint_auth_method: "client_secret_basic"
