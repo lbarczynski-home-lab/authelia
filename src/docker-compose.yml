@@ -45,6 +45,10 @@ services:
         condition: service_healthy
       redis:
         condition: service_healthy
+    labels:
+      - 'wud.watch=true'
+      - 'wud.tag.include=^\d+\.\d+\.\d+$$'
+      - "wud.link.template=https://github.com/authelia/authelia/releases/tag/v$${major}.$${minor}.$${patch}"
     restart: unless-stopped
 
   postgresql:
