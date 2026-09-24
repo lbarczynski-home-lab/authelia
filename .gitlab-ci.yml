@@ -53,7 +53,7 @@ setup:generate-build-artifacts:
 test:authelia:validate-config:
   stage: test
   image:
-    name: ghcr.io/authelia/authelia:4.39.20
+    name: ghcr.io/authelia/authelia:4.39.28
     entrypoint: [""]
   variables:
     X_AUTHELIA_CONFIG_FILTERS: template
