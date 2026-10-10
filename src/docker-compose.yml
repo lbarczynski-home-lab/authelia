@@ -18,6 +18,7 @@ services:
         "WUD_OAUTH_CLIENT_SECRET",
         "VAULTWARDEN_OAUTH_CLIENT_SECRET",
         "LITELLM_OAUTH_CLIENT_SECRET",
+        "HOMEPAGE_OAUTH_CLIENT_SECRET",
       ]
     env_file:
       - envs/db.env
@@ -154,4 +155,6 @@ secrets:
     file: ./secrets/services/VAULTWARDEN_OAUTH_CLIENT_SECRET
   LITELLM_OAUTH_CLIENT_SECRET:
     file: ./secrets/services/LITELLM_OAUTH_CLIENT_SECRET
+  HOMEPAGE_OAUTH_CLIENT_SECRET:
+    file: ./secrets/services/HOMEPAGE_OAUTH_CLIENT_SECRET
 
