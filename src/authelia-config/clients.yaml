@@ -283,7 +283,7 @@ identity_providers:
         require_pkce: true
         pkce_challenge_method: "S256"
         redirect_uris:
-          - "https://home.intranet.xbhl.online/api/auth/callback/homepage-oidc"
+          - "https://start.intranet.xbhl.online/api/auth/callback/homepage-oidc"
         scopes:
           - "openid"
           - "profile"
