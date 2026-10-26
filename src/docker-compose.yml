@@ -21,6 +21,7 @@ services:
         "HOMEPAGE_OAUTH_CLIENT_SECRET",
         "BOOKORBIT_OAUTH_CLIENT_SECRET",
         "PORTAINER_OAUTH_CLIENT_SECRET",
+        "GRAFANA_OAUTH_CLIENT_SECRET",
       ]
     env_file:
       - envs/db.env
@@ -163,4 +164,6 @@ secrets:
     file: ./secrets/services/BOOKORBIT_OAUTH_CLIENT_SECRET
   PORTAINER_OAUTH_CLIENT_SECRET:
     file: ./secrets/services/PORTAINER_OAUTH_CLIENT_SECRET
+  GRAFANA_OAUTH_CLIENT_SECRET:
+    file: ./secrets/services/GRAFANA_OAUTH_CLIENT_SECRET
 
