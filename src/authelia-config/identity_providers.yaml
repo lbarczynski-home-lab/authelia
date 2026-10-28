@@ -11,5 +11,5 @@ identity_providers:
         - introspection
         - userinfo
       allowed_origins:
-        - https://ai.intranet.xbhl.online
+        - https://chat.ai.intranet.xbhl.online
       allowed_origins_from_client_redirect_uris: true

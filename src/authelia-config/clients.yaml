@@ -22,7 +22,7 @@ identity_providers:
         public: false
         authorization_policy: "two_factor"
         redirect_uris:
-          - "https://ai.intranet.xbhl.online/oauth/oidc/callback"
+          - "https://chat.ai.intranet.xbhl.online/oauth/oidc/callback"
         scopes:
           - "openid"
           - "profile"
