@@ -313,7 +313,7 @@ identity_providers:
         require_pkce: true
         pkce_challenge_method: "S256"
         redirect_uris:
-          - "https://read.intranet.xbhl.online/oauth2-callback"
+          - "https://bookorbit.intranet.xbhl.online/oauth2-callback"
           - "bookorbit://oauth2-callback"
         scopes:
           - "openid"
