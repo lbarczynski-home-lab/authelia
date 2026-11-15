@@ -13,7 +13,7 @@ Use Authelia's official **[OpenID Connect 1.0 Relying Party Client Integrations]
 Operate strictly via stateless `git -C "<authelia_dir>"` and `glab` CLI (never SSH, probe `:2375`, print secrets, or invoke `python3`/`ruby`/`node`).
 
 ## 1. Branching, Merge Order & Role Mapping
-- Create `feat/<service>-oidc` (or `chore/<service>-oidc` for updates) off latest `origin/main`:
+- On persistent local checkouts (`keep_roundtrip`), capture `original_ref` first via `git -C "<authelia_dir>" symbolic-ref --short -q HEAD` (falling back to `git -C "<authelia_dir>" rev-parse HEAD` if detached) and stash any pre-existing dirty work before creating `feat/<service>-oidc` (or `chore/<service>-oidc` for updates) off latest `origin/main`:
   ```bash
   git -C "<authelia_dir>" fetch --prune origin
   git -C "<authelia_dir>" checkout -B "feat/<service>-oidc" origin/main
@@ -40,4 +40,18 @@ Operate strictly via stateless `git -C "<authelia_dir>"` and `glab` CLI (never S
      "home-lab/authelia:<SERVICE>_OAUTH_CLIENT_SECRET" \
      "<project_path>:<SERVICE>_OAUTH_CLIENT_SECRET"
    ```
-5. **Validate & Open MR**: Validate modified YAML files with `yq` or `yamllint`. Commit (`feat(oidc): register <service> oidc client`), push `feat/<service>-oidc`, open an MR via `glab mr create` (`--label "type::feature"`), verify CI job `test:authelia:validate-config` passes, and restore checkout to `origin/main`.
+5. **Validate & Open MR**: Validate modified YAML files with `yq` or `yamllint`. Commit (`feat(oidc): register <service> oidc client`), push `feat/<service>-oidc`, write `/tmp/homelab-work/mr-desc-authelia-<service>.md` via `write_file`, and open an MR via `glab mr create` passing explicit cross-repo flags:
+   ```bash
+   git -C "<authelia_dir>" push -u origin "feat/<service>-oidc"
+   glab mr create \
+     --source-branch "feat/<service>-oidc" \
+     --target-branch "main" \
+     --title "feat(oidc): register <service> oidc client" \
+     --description-file "/tmp/homelab-work/mr-desc-authelia-<service>.md" \
+     --label "type::feature" \
+     --remove-source-branch \
+     --yes \
+     --head "https://gitlab.intranet.xbhl.online/home-lab/authelia" \
+     -R "https://gitlab.intranet.xbhl.online/home-lab/authelia"
+   ```
+   *(Adjust branch, title, and label for `chore/<service>-oidc` updates.)* Verify CI job `test:authelia:validate-config` passes, and restore `<authelia_dir>` to `<original_ref>` (popping any run-created stash) on persistent `keep_roundtrip` checkouts, `git -C "<authelia_dir>" checkout main` on `keep_cloned` checkouts, or `git -C "<authelia_dir>" checkout -f origin/main` strictly on `/tmp/homelab-work/*` caches (never run `glab mr merge`).
