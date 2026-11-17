@@ -95,6 +95,9 @@ identity_providers:
         authorization_policy: 'two_factor'
         require_pkce: true
         pkce_challenge_method: 'S256'
+        audience:
+          - 'https://files.xbhl.online'
+        requested_audience_mode: 'implicit'
         scopes:
           - 'openid'
           - 'offline_access'
@@ -105,24 +108,27 @@ identity_providers:
           - 'https://files.xbhl.online/'
           - 'https://files.xbhl.online/oidc-callback.html'
           - 'https://files.xbhl.online/oidc-silent-redirect.html'
-          - 'https://files.xbhl.online/apps/openidconnect/redirect'
         response_types:
           - 'code'
         grant_types:
           - 'authorization_code'
           - 'refresh_token'
-        access_token_signed_response_alg: 'none'
+        access_token_signed_response_alg: 'RS256'
         userinfo_signed_response_alg: 'none'
         token_endpoint_auth_method: 'none'
       - client_id: 'xdXOt13JKxym1B1QcEncf2XDkLAexMBFwiT9j6EfhhHFJhs2KM9jbjTmf8JBXE69'
         client_name: 'ownCloud Infinite Scale (Desktop Client)'
-        client_secret: 'UBntmLjC2yYCeHwsyj73Uwo9TAaecAetRwMw0xYcvNL9yRdLSUi0hUAHfvCHFeFh'
+        client_secret: '$plaintext$UBntmLjC2yYCeHwsyj73Uwo9TAaecAetRwMw0xYcvNL9yRdLSUi0hUAHfvCHFeFh'
         lifespan: 'ocis'
-        consent_mode: 'implicit'
+        consent_mode: 'pre-configured'
+        pre_configured_consent_duration: '1y'
         public: false
         authorization_policy: 'two_factor'
         require_pkce: true
         pkce_challenge_method: 'S256'
+        audience:
+          - 'https://files.xbhl.online'
+        requested_audience_mode: 'implicit'
         scopes:
           - 'openid'
           - 'offline_access'
@@ -137,12 +143,12 @@ identity_providers:
         grant_types:
           - 'authorization_code'
           - 'refresh_token'
-        access_token_signed_response_alg: 'none'
+        access_token_signed_response_alg: 'RS256'
         userinfo_signed_response_alg: 'none'
         token_endpoint_auth_method: 'client_secret_basic'
       - client_id: 'e4rAsNUSIUs0lF4nbv9FmCeUkTlV9GdgTLDH1b5uie7syb90SzEVrbN7HIpmWJeD'
         client_name: 'ownCloud Infinite Scale (Android)'
-        client_secret: 'dInFYGV33xKzhbRmpqQltYNdfLdJIfJ9L5ISoKhNoT9qZftpdWSP71VrpGR9pmoD'
+        client_secret: '$plaintext$dInFYGV33xKzhbRmpqQltYNdfLdJIfJ9L5ISoKhNoT9qZftpdWSP71VrpGR9pmoD'
         lifespan: 'ocis'
         consent_mode: 'pre-configured'
         pre_configured_consent_duration: '10y'
@@ -150,6 +156,9 @@ identity_providers:
         authorization_policy: 'two_factor'
         require_pkce: true
         pkce_challenge_method: 'S256'
+        audience:
+          - 'https://files.xbhl.online'
+        requested_audience_mode: 'implicit'
         redirect_uris:
           - 'oc://android.owncloud.com'
           - 'oc://android.owncloud.com/'
@@ -166,12 +175,12 @@ identity_providers:
         grant_types:
           - 'authorization_code'
           - 'refresh_token'
-        access_token_signed_response_alg: 'none'
+        access_token_signed_response_alg: 'RS256'
         userinfo_signed_response_alg: 'none'
-        token_endpoint_auth_method: 'client_secret_post'
+        token_endpoint_auth_method: 'client_secret_basic'
       - client_id: 'mxd5OQDk6es5LzOzRvidJNfXLUZS2oN3oUFeXPP8LpPrhx3UroJFduGEYIBOxkY1'
         client_name: 'ownCloud Infinite Scale (iOS)'
-        client_secret: 'KFeFWWEZO9TkisIQzR3fo7hfiMXlOpaqP8CFuTbSHzV1TUuGECglPxpiVKJfOXIx'
+        client_secret: '$plaintext$KFeFWWEZO9TkisIQzR3fo7hfiMXlOpaqP8CFuTbSHzV1TUuGECglPxpiVKJfOXIx'
         lifespan: 'ocis'
         consent_mode: 'pre-configured'
         pre_configured_consent_duration: '10y'
@@ -179,6 +188,9 @@ identity_providers:
         authorization_policy: 'two_factor'
         require_pkce: true
         pkce_challenge_method: 'S256'
+        audience:
+          - 'https://files.xbhl.online'
+        requested_audience_mode: 'implicit'
         redirect_uris:
           - 'oc://ios.owncloud.com'
           - 'oc.ios://ios.owncloud.com'
@@ -188,10 +200,12 @@ identity_providers:
           - 'groups'
           - 'profile'
           - 'email'
+        response_types:
+          - 'code'
         grant_types:
           - 'authorization_code'
           - 'refresh_token'
-        access_token_signed_response_alg: 'none'
+        access_token_signed_response_alg: 'RS256'
         userinfo_signed_response_alg: 'none'
         token_endpoint_auth_method: 'client_secret_basic'
       - client_id: "nextcloud"

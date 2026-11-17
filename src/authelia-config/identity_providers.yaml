@@ -5,7 +5,6 @@ identity_providers:
       - key: "{{ secret `/run/secrets/OIDC_ISSUER_PRIVATE_KEY` }}"
     cors:
       endpoints:
-        - authorization
         - token
         - revocation
         - introspection
