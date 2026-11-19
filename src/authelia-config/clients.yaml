@@ -1,3 +1,8 @@
+definitions:
+  user_attributes:
+    immich_role:
+      expression: '"Domain Power Users" in groups ? "admin" : "user"'
+
 identity_providers:  
   oidc:
     lifespans:
@@ -13,6 +18,20 @@ identity_providers:
           - 'name'
           - 'groups'
           - 'preferred_username'
+      immich:
+        id_token:
+          - 'email'
+          - 'name'
+          - 'preferred_username'
+          - 'immich_role'
+        custom_claims:
+          immich_role:
+            attribute: 'immich_role'
+
+    scopes:
+      immich:
+        claims:
+          - 'immich_role'
 
     clients:
       - client_id: "mnDs7U359iJiBJLmHTkMDjIVeEoeAobQCa0NjDss"
@@ -377,6 +396,31 @@ identity_providers:
           - "profile"
           - "email"
           - "groups"
+        response_types:
+          - "code"
+        grant_types:
+          - "authorization_code"
+        access_token_signed_response_alg: "none"
+        userinfo_signed_response_alg: "none"
+        token_endpoint_auth_method: "client_secret_basic"
+      - client_id: "immich"
+        client_name: "Photos@XBHL"
+        client_secret: '{{ secret "/run/secrets/IMMICH_OAUTH_CLIENT_SECRET" }}'
+        claims_policy: "immich"
+        consent_mode: "implicit"
+        public: false
+        authorization_policy: "two_factor"
+        require_pkce: true
+        pkce_challenge_method: "S256"
+        redirect_uris:
+          - "https://photos.xbhl.online/auth/login"
+          - "https://photos.xbhl.online/user-settings"
+          - "app.immich:///oauth-callback"
+        scopes:
+          - "openid"
+          - "profile"
+          - "email"
+          - "immich"
         response_types:
           - "code"
         grant_types:
